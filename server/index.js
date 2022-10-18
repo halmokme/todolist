@@ -19,8 +19,19 @@ app.post('/', (req, res) => {
     id: ++id,
     todos: todoData,
   });
-  console.log(database)
   res.send('post success!');
+})
+
+app.delete('/', (req, res) => {
+  const { id } = req.body;
+  for(let i=0; i<database.length; i++) {
+    if(database[i].id === id) {
+      database.splice(i, 1);
+      i--;
+    }
+  }
+  console.log(database);
+  res.send('delete success');
 })
 
 app.listen(3001, () => {

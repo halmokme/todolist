@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const StyledTodo = styled.li`
   border-bottom: 1px solid #777;
-  padding: 20px;
+  padding: 20px 10px;
   display: flex;
   justify-content: space-between;
   color: #5DC8CD;
@@ -34,10 +35,22 @@ const StyledTodo = styled.li`
 `
 
 
-const Todo = ({ todo }) => {
+const Todo = ({ todo, id }) => {
 
   const handleDelete = () => {
-
+    const config = {
+      method: 'delete',
+      url: 'http://localhost:3001',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : JSON.stringify({
+        "id":id,
+      })
+    };
+    axios(config)
+    .then(data => window.location.reload())
+    .catch((err) => console.log(err))
   }
 
   return (

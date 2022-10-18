@@ -13,7 +13,7 @@ const StyledTodoList = styled.ul`
 const Todolist = ({ todoList }) => {
   return (
     <StyledTodoList>
-      {todoList?.map(todo => <Todo key={todo.id} todo={todo.todos} />)}
+      {todoList?.map(todo => <Todo key={todo.id} id={todo.id} todo={todo.todos} />)}
       {console.log(todoList)}
     </StyledTodoList>
   );
