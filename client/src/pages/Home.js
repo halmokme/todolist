@@ -71,7 +71,6 @@ const Home = () => {
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      {console.log(todoList)}
       <h2>TO DO LIST</h2>
       <div className='user__input'>
         <input 
@@ -82,7 +81,7 @@ const Home = () => {
         ></input>
         <button type='submit'>+</button>
       </div>
-      <Todolist />
+      <Todolist todoList={todoList} />
       <Task />
     </StyledForm>
   );
