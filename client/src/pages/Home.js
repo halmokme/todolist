@@ -1,0 +1,76 @@
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Todolist from '../components/Todolist';
+import Task from '../components/Task';
+
+const StyledForm = styled.form`
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 20px;
+  background: white;
+  border: none;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  h2 {
+    text-align: center;
+    margin: 20px 0;
+    color: #777;
+  }
+  .user__input {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    button {
+      border: 1px solid #5DC8CD;
+      background-color: #5DC8CD;
+      // outline: none;
+      width: 2.4rem;
+      height: 2.4rem;
+      cursor: pointer;
+      color: white;
+    }
+    button:hover {
+      box-shadow: 0 -80px 0 0 rgba(0,0,0,0.25) inset;
+    }
+  }
+  input {
+    display: block;
+    width: 80%;
+    padding: 8px 10px;
+    outline: none;
+    text-align: center;
+    border: 1px solid rgb(218, 218, 173);
+    color: #5DC8CD;
+    font-size: 1em;
+    font-style: italic;
+    font-weight: 500;
+  }
+`
+
+const Home = () => {
+
+  const [todos, setTodos] = useState('');
+
+  const handleInput = (e) => {
+    setTodos(e.target.value);
+  } 
+
+  return (
+    <StyledForm>
+      <h2>TO DO LIST</h2>
+      <div className='user__input'>
+        <input 
+          type='text' 
+          value={todos}
+          onChange={handleInput}
+        ></input>
+        <button type='submit'>+</button>
+      </div>
+      <Todolist />
+      <Task />
+    </StyledForm>
+  );
+};
+
+export default Home;
