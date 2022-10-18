@@ -53,12 +53,14 @@ const Home = () => {
 
   const [todos, setTodos] = useState('');
   const [todoList, setTodoList] = useState();
+  const [edit, setEdit] = useState(false);
 
   const handleInput = (e) => {
     setTodos(e.target.value);
   } 
 
   const handleSubmit = (e) => {
+    if(edit) e.preventDefault();
     const todoData = e.target.text.value;
     axios.post('http://localhost:3001/', { todoData })
   }
@@ -81,7 +83,7 @@ const Home = () => {
         ></input>
         <button type='submit'>+</button>
       </div>
-      <Todolist todoList={todoList} />
+      <Todolist todoList={todoList} edit={edit} setEdit={setEdit} />
       <Task />
     </StyledForm>
   );

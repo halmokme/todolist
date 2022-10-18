@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -32,10 +32,18 @@ const StyledTodo = styled.li`
     width: 1.2rem;
     height: 1.2rem;
   }
+  .edit {
+    height: 4px;
+    width: 70%;
+    border: none;
+    border-bottom: 1px solid #777;
+  }
 `
 
 
-const Todo = ({ todo, id }) => {
+const Todo = ({ todo, id, edit, setEdit }) => {
+
+  const [editData, setEditData] = useState('')
 
   const handleDelete = () => {
     const config = {
@@ -53,14 +61,39 @@ const Todo = ({ todo, id }) => {
     .catch((err) => console.log(err))
   }
 
+  const handleEdit = (e) => {
+    setEdit(!edit);
+    if(edit) window.location.reload();
+    const config = {
+      method: 'put',
+      url: 'http://localhost:3001',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : JSON.stringify({
+        "id":id,
+        "todoList": editData,
+      })
+    };
+    axios(config)
+    .then(data => console.log(JSON.stringify(data.data)))
+    .catch((err) => console.log(err))
+  }
+  const handleInput = (e) => {
+    setEditData(e.target.value);
+  }
+
   return (
     <StyledTodo>
       <div className='contents'>
         <input type='checkbox' className='checkbox' />
-        <div className='font'>{todo}</div>
+        {!edit 
+          ? <div className='font'>{todo}</div>
+          : <input className='edit' type='text' value={editData} onChange={handleInput} />
+        }
       </div>
       <div className='imgs'>
-        <img src='./images/edit.png' alt="edit" />
+        <img src={!edit ? './images/edit.png' : './images/edit2.gif'} alt="edit" onClick={handleEdit} />
         <img src='./images/delete.png' alt="delete" onClick={handleDelete} />
       </div>
     </StyledTodo>

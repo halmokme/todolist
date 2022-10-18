@@ -22,6 +22,17 @@ app.post('/', (req, res) => {
   res.send('post success!');
 })
 
+app.put('/', (req, res) => {
+  const { id, todoList } = req.body;
+  for(let i=0; i<database.length; i++) {
+    if(database[i].id === id) {
+      database[i].todos = todoList;
+    }
+  }
+  console.log(database);
+  return res.send('put success');
+})
+
 app.delete('/', (req, res) => {
   const { id } = req.body;
   for(let i=0; i<database.length; i++) {
