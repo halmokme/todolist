@@ -5,6 +5,8 @@ import Todo from './Todo';
 const StyledTodoList = styled.ul`
   padding: 0;
   text-align: center;
+  width: 90%;
+  margin: auto;
 `
 
 const Todolist = ({ todoList }) => {
