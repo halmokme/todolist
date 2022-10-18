@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Todolist from '../components/Todolist';
 import Task from '../components/Task';
+import axios from 'axios';
 
 const StyledForm = styled.form`
   max-width: 600px;
@@ -51,17 +52,31 @@ const StyledForm = styled.form`
 const Home = () => {
 
   const [todos, setTodos] = useState('');
+  const [todoList, setTodoList] = useState();
 
   const handleInput = (e) => {
     setTodos(e.target.value);
   } 
 
+  const handleSubmit = (e) => {
+    const todoData = e.target.text.value;
+    axios.post('http://localhost:3001/', { todoData })
+  }
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/').then(data => {
+      setTodoList(data.data);
+    })
+  }, [])
+
   return (
-    <StyledForm>
+    <StyledForm onSubmit={handleSubmit}>
+      {console.log(todoList)}
       <h2>TO DO LIST</h2>
       <div className='user__input'>
         <input 
           type='text' 
+          name='text'
           value={todos}
           onChange={handleInput}
         ></input>
