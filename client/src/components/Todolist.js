@@ -7,6 +7,7 @@ const StyledTodoList = styled.ul`
   text-align: center;
   width: 90%;
   margin: auto;
+  list-style: none;
 `
 
 const Todolist = ({ todoList }) => {
