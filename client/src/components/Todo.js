@@ -41,9 +41,10 @@ const StyledTodo = styled.li`
 `
 
 
-const Todo = ({ todo, id, edit, setEdit }) => {
+const Todo = ({ todo, id, edit, setEdit, countTasks }) => {
 
   const [editData, setEditData] = useState('')
+  const [checked, setChecked] = useState(false);
 
   const handleDelete = () => {
     const config = {
@@ -79,14 +80,20 @@ const Todo = ({ todo, id, edit, setEdit }) => {
     .then(data => console.log(JSON.stringify(data.data)))
     .catch((err) => console.log(err))
   }
+
   const handleInput = (e) => {
     setEditData(e.target.value);
+  }
+
+  const handleChecked = (e) => {
+    countTasks(e.target.checked);
+    setChecked(!checked);
   }
 
   return (
     <StyledTodo>
       <div className='contents'>
-        <input type='checkbox' className='checkbox' />
+        <input type='checkbox' className='checkbox' checked={checked} onChange={handleChecked} />
         {!edit 
           ? <div className='font'>{todo}</div>
           : <input className='edit' type='text' value={editData} onChange={handleInput} />

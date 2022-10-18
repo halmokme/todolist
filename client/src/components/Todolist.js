@@ -10,11 +10,10 @@ const StyledTodoList = styled.ul`
   list-style: none;
 `
 
-const Todolist = ({ todoList, edit, setEdit }) => {
+const Todolist = ({ todoList, edit, setEdit, countTasks }) => {
   return (
     <StyledTodoList>
-      {todoList?.map(todo => <Todo key={todo.id} id={todo.id} todo={todo.todos} edit={edit} setEdit={setEdit} />)}
-      {console.log(todoList)}
+      {todoList?.map(todo => <Todo key={todo.id} id={todo.id} todo={todo.todos} edit={edit} setEdit={setEdit} countTasks={countTasks} />)}
     </StyledTodoList>
   );
 };

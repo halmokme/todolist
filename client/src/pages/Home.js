@@ -52,8 +52,9 @@ const StyledForm = styled.form`
 const Home = () => {
 
   const [todos, setTodos] = useState('');
-  const [todoList, setTodoList] = useState();
+  const [todoList, setTodoList] = useState([]);
   const [edit, setEdit] = useState(false);
+  const [taskCnt, setTaskCnt] = useState(0);
 
   const handleInput = (e) => {
     setTodos(e.target.value);
@@ -63,6 +64,14 @@ const Home = () => {
     if(edit) e.preventDefault();
     const todoData = e.target.text.value;
     axios.post('http://localhost:3001/', { todoData })
+  }
+
+  const countTasks = (isChecked) => {
+    if (isChecked) {
+      setTaskCnt(prevCnt => prevCnt + 1);
+    } else {
+      setTaskCnt(prevCnt => prevCnt - 1);
+    }
   }
 
   useEffect(() => {
@@ -83,8 +92,8 @@ const Home = () => {
         ></input>
         <button type='submit'>+</button>
       </div>
-      <Todolist todoList={todoList} edit={edit} setEdit={setEdit} />
-      <Task />
+      <Todolist todoList={todoList} edit={edit} setEdit={setEdit} countTasks={countTasks} />
+      <Task taskCnt={taskCnt} todoList={todoList} />
     </StyledForm>
   );
 };
