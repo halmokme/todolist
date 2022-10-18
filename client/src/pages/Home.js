@@ -89,6 +89,7 @@ const Home = () => {
           name='text'
           value={todos}
           onChange={handleInput}
+          autoFocus
         ></input>
         <button type='submit'>+</button>
       </div>

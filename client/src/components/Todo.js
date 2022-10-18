@@ -45,6 +45,7 @@ const Todo = ({ todo, id, edit, setEdit, countTasks }) => {
 
   const [editData, setEditData] = useState('')
   const [checked, setChecked] = useState(false);
+  const [checkedId, setCheckedId] = useState('');
 
   const handleDelete = () => {
     const config = {
@@ -64,6 +65,8 @@ const Todo = ({ todo, id, edit, setEdit, countTasks }) => {
 
   const handleEdit = (e) => {
     setEdit(!edit);
+    setCheckedId(id)
+    console.log(id)
     if(edit) window.location.reload();
     const config = {
       method: 'put',
@@ -94,13 +97,13 @@ const Todo = ({ todo, id, edit, setEdit, countTasks }) => {
     <StyledTodo>
       <div className='contents'>
         <input type='checkbox' className='checkbox' checked={checked} onChange={handleChecked} />
-        {!edit 
-          ? <div className='font'>{todo}</div>
-          : <input className='edit' type='text' value={editData} onChange={handleInput} />
+        {edit && id === checkedId
+          ? <input className='edit' type='text' value={editData} onChange={handleInput} />
+          : <div className='font'>{todo}</div>
         }
       </div>
       <div className='imgs'>
-        <img src={!edit ? './images/edit.png' : './images/edit2.gif'} alt="edit" onClick={handleEdit} />
+        <img src={edit && id === checkedId ? './images/edit2.gif' : './images/edit.png'} alt="edit" onClick={handleEdit} />
         <img src='./images/delete.png' alt="delete" onClick={handleDelete} />
       </div>
     </StyledTodo>

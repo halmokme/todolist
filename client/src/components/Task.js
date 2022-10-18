@@ -25,7 +25,7 @@ const StyledTask = styled.div`
     animation: bar 2s;
     @keyframes bar {
       from {
-        width: 0%;
+        width: 20%;
       }
       to {
         width: 100%;
